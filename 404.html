@@ -1,0 +1,7 @@
+<script>
+    // temporary workaround for Github Pages SPA limitations (404 error)
+    // pathname is of the form /abc/def, slice removes leading /
+    var redirectPath = window.location.pathname.slice(1);  // wpisy/wpis
+    localStorage.setItem('redirectPath', redirectPath);
+    window.location.href= window.location.origin;
+</script>
