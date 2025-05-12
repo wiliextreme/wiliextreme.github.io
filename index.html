@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wiliextreme</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="face">
+    <div class="eyes-container">
+      <div class="eye">
+        <div class="pupil"></div>
+      </div>
+      <div class="eye">
+        <div class="pupil"></div>
+      </div>
+    </div>
+    <div class="mouth">
+      <a href="https://youtube.com/wiliextreme" class="social-link">
+        <img src="assets/yt-logo.png" alt="YouTube" class="mouth-icon">
+      </a>
+      <a href="https://instagram.com/wiliextreme" class="social-link">
+        <img src="assets/ig-logo.png" alt="Instagram" class="mouth-icon">
+      </a>
+      <a href="https://facebook.com/wiliextreme" class="social-link">
+        <img src="assets/x-logo.png" alt="Twitter (X)" class="mouth-icon">
+      </a>
+      <a href="https://x.com/wiliextreme" class="social-link">
+        <img src="assets/fb-logo.png" alt="Facebook" class="mouth-icon">
+      </a>
+    </div>
+  </div>
+  <a href="https://youtube.com/watch?v=cBCfiq9N7xY" class="secret-link">
+    <img src="assets/easteregg.png" alt="Secret" class="secret-image">
+  </a>
+  <script>
+    function updateEyes() {
+      const mouseX = window.mouseX || 0;
+      const mouseY = window.mouseY || 0;
+
+      const eyes = document.querySelectorAll('.eye');
+      const pupils = document.querySelectorAll('.pupil');
+      
+      eyes.forEach((eye, index) => {
+        const rect = eye.getBoundingClientRect();
+        const eyeX = rect.left + rect.width / 2;
+        const eyeY = rect.top + rect.height / 2;
+        
+        // Calculate the maximum distance the pupil can move
+        const maxDistance = (rect.width - pupils[index].offsetWidth) / 2;
+        
+        // Calculate the angle between the eye center and mouse position
+        const angle = Math.atan2(mouseY - eyeY, mouseX - eyeX);
+        
+        // Calculate the distance based on how far the mouse is from the eye
+        const mouseDistance = Math.hypot(mouseX - eyeX, mouseY - eyeY);
+        const distance = Math.min(maxDistance, mouseDistance / 4);
+        
+        // Calculate the new position
+        const pupilX = Math.cos(angle) * distance;
+        const pupilY = Math.sin(angle) * distance;
+        
+        pupils[index].style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
+      });
+
+      requestAnimationFrame(updateEyes);
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      window.mouseX = e.clientX;
+      window.mouseY = e.clientY;
+    });
+
+    requestAnimationFrame(updateEyes);
+  </script>
+</body>
+</html>
